@@ -30,11 +30,11 @@ def nasaPicture():
     response = requests.get(imgUrl)
     imageBits = io.BytesIO(response.content)
     imageBits.seek(0)
-    return imageBits
+    return pygame.image.load(imageBits).convert()
 
 def nasaSurface(imageData):
     #get needed image, rects, centers
-    nasaAPOD = pygame.image.load(imageData).convert()
+    nasaAPOD = imageData
     screenRect = screen.get_rect()
     imageRect = nasaAPOD.get_rect()
     imageRect.center = screenRect.center
@@ -43,12 +43,15 @@ def nasaSurface(imageData):
     screen.blit(nasaAPOD, imageRect)
 
 
-#Initialize the screen, 
-screen = pygame.display.set_mode((800, 600), pygame.RESIZABLE)
+#Initialize the screen,
+screenW, screenH = 600, 800
+screen = pygame.display.set_mode((screenH, screenW), pygame.RESIZABLE)
 pygame.display.set_caption('NASA Image Of The Day V0.1')
 
 #Fetch the daily image to initialize
-imageData = pygame.image.load(nasaSurface(nasaPicture()))
+imageData = nasaPicture()
+#resize the image dynamically
+apod = pygame.transform.scale(imageData, (screenH, screenW))
 #Main loop
 running = True
 while running:
@@ -58,14 +61,16 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         
-        if event.type == pygame.VIDEORESIZE:
-            #update screen size
-            screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
+        elif event.type == pygame.VIDEORESIZE:
+            #update screen size and image scale
+            screenH, screenW = event.h, event.w
+            screen = pygame.display.set_mode((screenH, screenW), pygame.RESIZABLE)
+            apod = pygame.transform.scale(imageData, (screenH, screenW))
     
     #fill background with a color
     print('screen fill')
     screen.fill((155, 200, 10))
-    nasaSurface(imageData)
+    nasaSurface(apod)
     
     #update the display
     print('screen flip')
