@@ -50,8 +50,6 @@ def nasaSurface(imageData):
     print('screen blit')
     screen.blit(nasaAPOD, imageRect)
 
-def menuScreen():
-    pass
 
 #Initialize the screen,
 screenW, screenH = 600, 800
