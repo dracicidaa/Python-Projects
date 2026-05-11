@@ -22,7 +22,7 @@ from datetime import date
 #Initialize stuff
 pygame.init()
 load_dotenv()
-if os.getenv('NASA_KEY'):
+if not os.getenv('NASA_KEY'):
     apiKey = 'DEMO_KEY'
 else:                               #Back up for if there is no nasa key in env
     apiKey = os.getenv('NASA_KEY')
