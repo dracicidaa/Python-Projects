@@ -54,7 +54,7 @@ def nasaSurface(imageData):
 #Initialize the screen,
 screenW, screenH = 600, 800
 screen = pygame.display.set_mode((screenH, screenW), pygame.RESIZABLE)
-pygame.display.set_caption('NASA Image Of The Day V0.1')
+pygame.display.set_caption('NASA Image Of The Day V0.2')
 
 #Fetch the daily image to initialize
 imageData = nasaPicture()
