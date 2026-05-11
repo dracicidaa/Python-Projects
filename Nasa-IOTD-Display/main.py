@@ -1,10 +1,13 @@
 #Nasa IOTD Display
-#Version 0.1
+#Version 0.2
 #Change log:
 #-created window with pygame
 #-added nasapy pull request for images using demo key
 #-displayed an image via pygame
 #-used IO to store an image
+#-Added dynamic resize to image
+#-Added in todays date as default image grab
+#-Added in failsafe NASA api Key
 
 
 #Import dependencies
@@ -19,7 +22,10 @@ from datetime import date
 #Initialize stuff
 pygame.init()
 load_dotenv()
-apiKey = os.getenv('NASA_KEY')
+if not os.getenv('NASA_KEY'):
+    apiKey = 'DEMO_KEY'
+else:                               #Back up for if there is no nasa key in env
+    apiKey = os.getenv('NASA_KEY')
 nasa = nasapy.Nasa(apiKey)
 date = date.today()
 
