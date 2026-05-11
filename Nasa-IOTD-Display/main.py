@@ -14,17 +14,19 @@ import pygame
 import requests
 import io
 from dotenv import load_dotenv
+from datetime import date
 
 #Initialize stuff
 pygame.init()
 load_dotenv()
 apiKey = os.getenv('NASA_KEY')
 nasa = nasapy.Nasa(apiKey)
+date = date.today()
 
 #Functions
 def nasaPicture():
     #Get nasa image of the day
-    apod = nasa.picture_of_the_day(date='2000-04-28')
+    apod = nasa.picture_of_the_day(date=date)
     imgUrl = apod['url']
     #download the photo into ram
     response = requests.get(imgUrl)
@@ -42,6 +44,8 @@ def nasaSurface(imageData):
     print('screen blit')
     screen.blit(nasaAPOD, imageRect)
 
+def menuScreen():
+    pass
 
 #Initialize the screen,
 screenW, screenH = 600, 800
