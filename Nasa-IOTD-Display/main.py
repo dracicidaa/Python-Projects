@@ -27,12 +27,12 @@ if not os.getenv('NASA_KEY'):
 else:                               #Back up for if there is no nasa key in env
     apiKey = os.getenv('NASA_KEY')
 nasa = nasapy.Nasa(apiKey)
-date = date.today()
+todate = date.today()
 
 #Functions
 def nasaPicture():
     #Get nasa image of the day
-    apod = nasa.picture_of_the_day(date=date)
+    apod = nasa.picture_of_the_day(date=todate)
     imgUrl = apod['url']
     #download the photo into ram
     response = requests.get(imgUrl)
